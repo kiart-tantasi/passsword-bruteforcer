@@ -11,7 +11,7 @@ const passwordGenerator = (characters, currentPassword, lengthOfPassword) => {
 // START APP
 const startTime = new Date().toUTCString();
 
-length = 4;
+length = 5;
 passwordGenerator("0123456789", "", length);
 
 const endTime = new Date().toUTCString();

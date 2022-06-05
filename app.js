@@ -9,8 +9,10 @@ const passwordGenerator = (characters, currentPassword, yourPassword) => {
         console.log(currentPassword);
 
         if (currentPassword === yourPassword) {
-            const hackResult = "PASSWORD FOUND - " + yourPassword + "\nstart at " + startHackTime + "\ndone at " + new Date().toUTCString();
-            fs.writeFileSync("hack-result.txt", hackResult, (err) => { if (err) console.log(err); });
+            const endTime = new Date().toUTCString();
+            const secondsTaken = (new Date(endTime).getTime() - new Date(startTime).getTime()) / 1000;
+            const hackResult = "FOUND PASSWORD - " + currentPassword + "\nstart at: " + startTime + "\nend at: " + endTime + "\nseconds: " + secondsTaken + "\n\n";
+            fs.appendFile("hack-result.txt", hackResult, (error) => { if(error) console.log(err); });
             throw new Error("FOUND PASSWORD");
         };
 
@@ -32,8 +34,10 @@ const passwordGenerator = (characters, currentPassword, yourPassword) => {
     };
 };
 
-// START APP
-const characters = "0123456789";
-const startHackTime = new Date().toUTCString();
-fs.writeFileSync("passwords.txt", "", (err) => { if (err) console.log(err); })
-passwordGenerator(characters, "", "12575");
+const startTime = new Date().toUTCString();
+fs.writeFileSync("passwords.txt", "");
+try {
+    passwordGenerator("0123456789", "", "12575");
+} catch (error) {
+    console.log("\n\nDONE");
+};
